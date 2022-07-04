@@ -1,7 +1,7 @@
 package com.example.employees.controller;
 
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
+import com.example.employees.model.employee.Employee;
 import com.example.employees.service.EmployeesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,15 +17,15 @@ public class EmployeesController {
 
     private final EmployeesService employeesService;
 
-    @GetMapping("employees/")
+    @GetMapping("employees")
     public Page<Employee> getEmployeesPage(
             @RequestParam Integer page,
             @RequestParam Integer pageSize) {
-        System.out.println(page + " " + pageSize);
+
         return employeesService.getEmployeesPage(page, pageSize);
     }
 
-    @GetMapping("employeesOrder/")
+    @GetMapping("employeesOrder")
     public Page<Employee> getOrderEmployeesBy(
             @RequestParam Integer page,
             @RequestParam Integer pageSize,
@@ -35,7 +35,7 @@ public class EmployeesController {
         return employeesService.orderEmployeesBy(page, pageSize, orderBy, order);
     }
 
-    @GetMapping("employeesByGender/")
+    @GetMapping("employeesByGender")
     public Page<Employee> filterEmployeesBy(
             @RequestParam Integer page,
             @RequestParam Integer pageSize,
@@ -44,13 +44,14 @@ public class EmployeesController {
         return employeesService.filterEmployeesByGender(page, pageSize, gender);
     }
 
-    @GetMapping("employeesByHireDate/")
+    @GetMapping("employeesByHireDate")
     public Page<Employee> filterByHireDateBeforeOrAfter(
             @RequestParam Integer page,
             @RequestParam Integer pageSize,
             @RequestParam String date,
             @RequestParam String beforeOrAfter
     ) {
+
         return employeesService.filterByHireDateBeforeOrAfter(
                 page,
                 pageSize,

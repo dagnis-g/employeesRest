@@ -1,39 +1,52 @@
 package com.example.employees.service;
 
-import com.example.employees.model.Employee;
+import com.example.employees.model.employee.Employee;
+import com.example.employees.model.employee.EmployeeDto;
 import com.example.employees.repo.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final ModelMapper modelMapper;
 
-    public Employee findEmployeeByNo(Integer no) {
-        return employeeRepository.findById(no).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public EmployeeDto findEmployeeByNo(Integer no) {
+        Optional<Employee> employeeToFind = employeeRepository.findById(no);
+
+        if (employeeToFind.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return modelMapper.map(employeeToFind, EmployeeDto.class);
     }
 
-    public String deleteEmployeeByNo(Integer no) {
+    public void deleteEmployeeByNo(Integer no) {
         try {
             employeeRepository.deleteById(no);
-            return "Deleted employee with ID " + no;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
-    public Employee addEmployee(Employee employee) {
-        employee.setEmployeeNo(setId());
+    public EmployeeDto addEmployee(EmployeeDto employee) {
+        Employee employeeToAdd = modelMapper.map(employee, Employee.class);
+        employeeToAdd.setEmployeeNo(setId());
 
-        if (checkIfUserInRepo(employee)) {
+        if (checkIfUserInRepo(employeeToAdd)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Employee already in database");
         }
 
-        return employeeRepository.save(employee);
+        Employee addedEmployee = employeeRepository.save(employeeToAdd);
+        return modelMapper.map(addedEmployee, EmployeeDto.class);
+
     }
 
     private boolean checkIfUserInRepo(Employee employee) {
@@ -45,12 +58,11 @@ public class EmployeeService {
     }
 
     private Integer setId() {
-
         try {
             return employeeRepository.findTopByOrderByEmployeeNoDesc().getEmployeeNo() + 1;
         } catch (NullPointerException e) {
             return 1;
         }
-        
+
     }
 }

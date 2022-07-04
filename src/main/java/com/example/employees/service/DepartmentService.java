@@ -14,11 +14,11 @@ public class DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     public List<String> getDepartmentNames(String sort) {
+        return departmentRepository
+                .getDepartmentNames()
+                .stream()
+                .sorted(sort.equalsIgnoreCase("desc") ? Comparator.reverseOrder() : Comparator.naturalOrder())
+                .toList();
 
-        if (sort.equalsIgnoreCase("desc")) {
-            return departmentRepository.getDepartmentNames().stream().sorted(Comparator.reverseOrder()).toList();
-        } else {
-            return departmentRepository.getDepartmentNames().stream().sorted(Comparator.naturalOrder()).toList();
-        }
     }
 }

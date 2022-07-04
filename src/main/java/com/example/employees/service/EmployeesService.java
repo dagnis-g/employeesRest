@@ -1,7 +1,7 @@
 package com.example.employees.service;
 
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
+import com.example.employees.model.employee.Employee;
 import com.example.employees.repo.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -51,7 +51,6 @@ public class EmployeesService {
             Integer pageSize,
             String orderBy,
             String order) {
-
         if (order == null || order.equalsIgnoreCase("asc")) {
             return employeeRepository.findAll(PageRequest.of(page, pageSize, Sort.by(orderBy).ascending()));
         }

@@ -1,7 +1,7 @@
 package com.example.employees.repo;
 
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
+import com.example.employees.model.employee.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

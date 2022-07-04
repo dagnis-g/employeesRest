@@ -1,7 +1,7 @@
 package com.example.employees.service;
 
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
+import com.example.employees.model.employee.Employee;
 import com.example.employees.repo.EmployeeRepository;
 import com.example.employees.repo.TitleRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,6 @@ public class TitleService {
     private final EmployeeRepository employeeRepository;
 
     public List<String> findDistinctTitles(String order) {
-
         if (order == null || order.equalsIgnoreCase("asc")) {
             return titleRepository.findAllTitles().stream()
                     .sorted(Comparator.naturalOrder())
@@ -48,7 +47,6 @@ public class TitleService {
             LocalDate hireDateBefore,
             LocalDate hireDateAfter,
             Sort.Direction sortDirection) {
-
         if (hireDateBefore != null) {
             return employeeRepository.findEmployeesByTitleSortFilterBeforeHireDate(
                     title,

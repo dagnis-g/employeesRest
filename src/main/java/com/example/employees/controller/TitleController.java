@@ -1,7 +1,7 @@
 package com.example.employees.controller;
 
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
+import com.example.employees.model.employee.Employee;
 import com.example.employees.service.TitleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class TitleController {
 
     private final TitleService titleService;
 
-    @GetMapping("titles/")
+    @GetMapping("titles")
     public List<String> findAllTitles(@RequestParam(required = false) String order) {
         return titleService.findDistinctTitles(order);
     }
@@ -33,8 +33,8 @@ public class TitleController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "lastName") String orderBy,
             @RequestParam(required = false) Gender gender,
-            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateBefore,
-            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateAfter,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateBefore,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateAfter,
             @RequestParam(defaultValue = "ASC") Sort.Direction sortDirection
     ) {
 

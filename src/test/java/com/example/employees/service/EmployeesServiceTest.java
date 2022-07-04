@@ -2,8 +2,9 @@ package com.example.employees.service;
 
 import com.example.employees.controller.EmployeeController;
 import com.example.employees.controller.EmployeesController;
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
+import com.example.employees.model.employee.Employee;
+import com.example.employees.model.employee.EmployeeDto;
 import com.example.employees.repo.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,19 +31,19 @@ class EmployeesServiceTest {
 
     @BeforeAll
     void addEmployeesToDatabase() {
-        Employee employee1 = new Employee(0,
+        EmployeeDto employee1 = new EmployeeDto(
                 LocalDate.parse("1995-01-01"),
                 "Jane",
                 "Anakin",
                 Gender.F,
                 LocalDate.parse("2005-01-01"));
-        Employee employee2 = new Employee(0,
+        EmployeeDto employee2 = new EmployeeDto(
                 LocalDate.parse("1995-02-01"),
                 "Durin",
                 "Bobby",
                 Gender.M,
                 LocalDate.parse("2007-02-01"));
-        Employee employee3 = new Employee(0,
+        EmployeeDto employee3 = new EmployeeDto(
                 LocalDate.parse("1995-03-01"),
                 "Anthony",
                 "Carter",
@@ -56,7 +57,6 @@ class EmployeesServiceTest {
 
     @Test
     void shouldGetPageWithTwoEmployees() {
-
         Page<Employee> employeesPage = employeesController.getEmployeesPage(0, 2);
         Assertions.assertEquals(2, employeesPage.getNumberOfElements());
 
@@ -64,7 +64,6 @@ class EmployeesServiceTest {
 
     @Test
     void shouldOrderByFirstNameDesc() {
-
         Page<Employee> employeePage = employeesController.getOrderEmployeesBy(0,
                 3,
                 "firstName",
@@ -82,7 +81,6 @@ class EmployeesServiceTest {
 
     @Test
     void shouldOrderByLastNameDesc() {
-
         Page<Employee> employeePage = employeesController.getOrderEmployeesBy(0,
                 3,
                 "lastName",
@@ -116,7 +114,6 @@ class EmployeesServiceTest {
 
     @Test
     void shouldFilterByGender() {
-
         Page<Employee> filteredPage = employeesController.filterEmployeesBy(0, 2, Gender.F);
         Employee filteredEmployee = filteredPage.getContent().get(0);
 
@@ -127,7 +124,6 @@ class EmployeesServiceTest {
 
     @Test
     void shouldFilterByHireDateAfter() {
-
         String dateString = "2006-02-01";
 
         Page<Employee> filteredPage = employeesController.filterByHireDateBeforeOrAfter(
@@ -147,7 +143,6 @@ class EmployeesServiceTest {
 
     @Test
     void shouldFilterByHireDateBefore() {
-
         String dateString = "2006-02-01";
 
         Page<Employee> filteredPage = employeesController.filterByHireDateBeforeOrAfter(

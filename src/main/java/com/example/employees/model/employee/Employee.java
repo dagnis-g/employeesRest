@@ -1,13 +1,11 @@
-package com.example.employees.model;
+package com.example.employees.model.employee;
 
+import com.example.employees.model.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -23,25 +21,25 @@ public class Employee {
     private Integer employeeNo;
 
     @Column(name = "birth_date")
-    @NotNull(message = "no valid birth date provided")
-    @Past
+//    @NotNull(message = "no valid birth date provided")
+//    @Past
     private LocalDate birthDate;
 
     @Column(name = "first_name")
-    @NotBlank
+//    @NotBlank
     private String firstName;
 
     @Column(name = "last_name")
-    @NotBlank
+//    @NotBlank
     private String lastName;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name = "hire_date")
-    @NotNull(message = "no valid hire date provided")
+//    @NotNull(message = "no valid hire date provided")
     private LocalDate hireDate;
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

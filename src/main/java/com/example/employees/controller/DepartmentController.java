@@ -14,7 +14,7 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @GetMapping("departments/")
+    @GetMapping("departments")
     public List<String> getDepartmentNames(
             @RequestParam(defaultValue = "asc") String sort) {
         return departmentService.getDepartmentNames(sort);

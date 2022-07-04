@@ -1,9 +1,9 @@
 package com.example.employees.service;
 
 import com.example.employees.controller.TitleController;
-import com.example.employees.model.Employee;
 import com.example.employees.model.Gender;
 import com.example.employees.model.Title;
+import com.example.employees.model.employee.Employee;
 import com.example.employees.repo.EmployeeRepository;
 import com.example.employees.repo.TitleRepository;
 import org.junit.jupiter.api.AfterEach;
