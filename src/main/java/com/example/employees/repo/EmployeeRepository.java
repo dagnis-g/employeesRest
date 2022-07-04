@@ -26,6 +26,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Page<Employee> findEmployeeByHireDateAfter(LocalDate date, Pageable pageable);
 
+    //Find By Title
+
     @Query(value = "SELECT e FROM Employee e " +
             "JOIN Title t ON t.employeeNo = e.employeeNo " +
             "WHERE ((t.title LIKE :title) " +
@@ -57,4 +59,34 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             Gender gender,
             Pageable pageable);
 
+    //Find By Department
+
+    @Query(value = "SELECT e FROM Employee e " +
+            "JOIN DepartmentEmployees de ON e.employeeNo = de.employeeNo " +
+            "JOIN Department d ON de.departmentNo = d.departmentNo " +
+            "WHERE d.departmentName LIKE :departmentName " +
+            "AND (:gender is null or e.gender LIKE :gender)")
+    Page<Employee> findEmployeesByDepartment(String departmentName, Gender gender, Pageable pageable);
+
+    @Query(value = "SELECT e FROM Employee e " +
+            "JOIN DepartmentEmployees de ON e.employeeNo = de.employeeNo " +
+            "JOIN Department d ON de.departmentNo = d.departmentNo " +
+            "WHERE ((d.departmentName LIKE :departmentName) " +
+            "AND (:gender is null or e.gender LIKE :gender)" +
+            "AND (:hireBefore is null or e.hireDate < :hireBefore))")
+    Page<Employee> findEmployeesByDeptNameAndHireDateBefore(String departmentName,
+                                                            Gender gender,
+                                                            LocalDate hireBefore,
+                                                            Pageable pageable);
+
+    @Query(value = "SELECT e FROM Employee e " +
+            "JOIN DepartmentEmployees de ON e.employeeNo = de.employeeNo " +
+            "JOIN Department d ON de.departmentNo = d.departmentNo " +
+            "WHERE ((d.departmentName LIKE :departmentName) " +
+            "AND (:gender is null or e.gender LIKE :gender)" +
+            "AND (:hireAfter is null or e.hireDate > :hireAfter))")
+    Page<Employee> findEmployeesByDeptNameAndHireDateAfter(String departmentName,
+                                                           Gender gender,
+                                                           LocalDate hireAfter,
+                                                           Pageable pageable);
 }

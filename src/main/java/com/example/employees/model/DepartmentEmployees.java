@@ -1,6 +1,8 @@
 package com.example.employees.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "dept_emp")
 public class DepartmentEmployees {
 
@@ -25,5 +29,5 @@ public class DepartmentEmployees {
 
     @Column(name = "to_date")
     private LocalDate toDate;
-    
+
 }
