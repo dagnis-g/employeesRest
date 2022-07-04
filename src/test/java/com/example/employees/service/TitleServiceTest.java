@@ -102,17 +102,17 @@ class TitleServiceTest {
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
 
-        String stringDateHire = "2001-01-01";
+        LocalDate stringDateHire = LocalDate.parse("2001-01-01");
         Page<Employee> employeesByDateAfter = titleController.getEmployeesByTitle(titleName1, 0, 5, "hireDate", null, null, stringDateHire, Sort.Direction.valueOf("ASC"));
 
         Assertions.assertEquals(2, employeesByDateAfter.getContent().size());
-        Assertions.assertTrue(LocalDate.parse(stringDateHire).isBefore(employeesByDateAfter.getContent().get(0).getHireDate()));
-        Assertions.assertTrue(LocalDate.parse(stringDateHire).isBefore(employeesByDateAfter.getContent().get(1).getHireDate()));
+        Assertions.assertTrue(stringDateHire.isBefore(employeesByDateAfter.getContent().get(0).getHireDate()));
+        Assertions.assertTrue(stringDateHire.isBefore(employeesByDateAfter.getContent().get(1).getHireDate()));
 
         Page<Employee> employeesByDateBefore = titleController.getEmployeesByTitle(titleName1, 0, 5, "hireDate", null, stringDateHire, null, Sort.Direction.valueOf("ASC"));
 
         Assertions.assertEquals(1, employeesByDateBefore.getContent().size());
-        Assertions.assertTrue(LocalDate.parse(stringDateHire).isAfter(employeesByDateBefore.getContent().get(0).getHireDate()));
+        Assertions.assertTrue(stringDateHire.isAfter(employeesByDateBefore.getContent().get(0).getHireDate()));
 
     }
 

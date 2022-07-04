@@ -45,21 +45,21 @@ public class TitleService {
             Integer pageSize,
             String orderBy,
             Gender gender,
-            String hireDateBefore,
-            String hireDateAfter,
+            LocalDate hireDateBefore,
+            LocalDate hireDateAfter,
             Sort.Direction sortDirection) {
 
         if (hireDateBefore != null) {
             return employeeRepository.findEmployeesByTitleSortFilterBeforeHireDate(
                     title,
                     gender,
-                    LocalDate.parse(hireDateBefore),
+                    hireDateBefore,
                     PageRequest.of(page, pageSize, sortDirection, orderBy));
         } else if (hireDateAfter != null) {
             return employeeRepository.findEmployeesByTitleSortFilterAfterAfterHireDate(
                     title,
                     gender,
-                    LocalDate.parse(hireDateAfter),
+                    hireDateAfter,
                     PageRequest.of(page, pageSize, sortDirection, orderBy));
         } else {
             return employeeRepository.findEmployeesByTitleSortFilter(

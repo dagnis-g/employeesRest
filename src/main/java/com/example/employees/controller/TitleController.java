@@ -6,11 +6,13 @@ import com.example.employees.service.TitleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,8 +33,8 @@ public class TitleController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "lastName") String orderBy,
             @RequestParam(required = false) Gender gender,
-            @RequestParam(required = false) String hireDateBefore,
-            @RequestParam(required = false) String hireDateAfter,
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateBefore,
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hireDateAfter,
             @RequestParam(defaultValue = "ASC") Sort.Direction sortDirection
     ) {
 
